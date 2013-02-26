@@ -64,6 +64,7 @@ void Robot::forward() {
     feet[2]->legPos(0);
     feet[4]->legPos(0);
   }
+  step = !step;
   
   svoController->exec(400);
   delay(400);
