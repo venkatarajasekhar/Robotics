@@ -66,6 +66,8 @@ void Robot::forward() {
   }
   step = !step;
   
+  step = !step;
+  
   svoController->exec(400);
   delay(400);
     
