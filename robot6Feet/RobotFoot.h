@@ -1,21 +1,24 @@
+#include <IRRemoteDIY.h>
+#include <ServoDIY24.h>
+
 #ifndef ROBOT6FEET_H
 #define ROBOT6FEET_H 1
 
-#include "ServoController.h"
+#include <ServoController.h>
 
 class RobotFoot {
 protected:
   int legSvo, kneeSvo, toeSvo;
   int legBaseAngle, kneeBaseAngle, toeBaseAngle;
-  boolean left;
+  bool left;
   ServoController* svoController;
   
 public:
 
-  static const boolean LEFT = true;
-  static const boolean RIGHT = false;
+  static const bool LEFT = true;
+  static const bool RIGHT = false;
 
-  RobotFoot(ServoController* ctrler, int legSv, int kneeSv, int toeSv, boolean lft);
+  RobotFoot(ServoController* ctrler, int legSv, int kneeSv, int toeSv, bool lft);
   
   void setBasePos(int legBaseAngle, int kneeBaseAngle, int toeBaseAngle) ;
   

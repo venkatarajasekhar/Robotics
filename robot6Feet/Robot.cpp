@@ -17,7 +17,7 @@ Robot::~Robot() {
   }
 }
 
-void Robot::init() {
+void Robot::stand() {
   feet[0]->setBasePos(55, 90, 90);
   feet[2]->setBasePos(135, 90, 90);
   feet[3]->setBasePos(55, 90, 90);
@@ -34,17 +34,23 @@ void Robot::init() {
   delay(1000);
 }
 
-
-void Robot::forward() {
+void Robot::move(bool forward) {
   if(step) {
   
     feet[0]->liftUp();
     feet[2]->liftUp();
     feet[4]->liftUp();
     
-    feet[0]->forward();
-    feet[2]->forward();
-    feet[4]->forward();
+    if(forward) {
+      feet[0]->forward();
+      feet[2]->forward();
+      feet[4]->forward();
+    }
+    else {
+      feet[0]->back();
+      feet[2]->back();
+      feet[4]->back();
+    }
     
     feet[1]->legPos(0);
     feet[3]->legPos(0);
@@ -56,9 +62,16 @@ void Robot::forward() {
     feet[3]->liftUp();
     feet[5]->liftUp();
     
-    feet[1]->forward();
-    feet[3]->forward();
-    feet[5]->forward();
+    if(forward) {
+      feet[1]->forward();
+      feet[3]->forward();
+      feet[5]->forward();
+   }
+   else {
+      feet[1]->back();
+      feet[3]->back();
+      feet[5]->back();
+   }
     
     feet[0]->legPos(0);
     feet[2]->legPos(0);

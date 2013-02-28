@@ -1,7 +1,7 @@
-#include "Servo24.h"
+#include <ServoDIY24.h>
 #include "RobotFoot.h"
 
-RobotFoot::RobotFoot(ServoController* ctrler, int legSv, int kneeSv, int toeSv, boolean lft) {
+RobotFoot::RobotFoot(ServoController* ctrler, int legSv, int kneeSv, int toeSv, bool lft) {
     legSvo = legSv;
     kneeSvo = kneeSv;
     toeSvo = toeSv;

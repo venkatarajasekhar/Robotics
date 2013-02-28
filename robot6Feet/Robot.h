@@ -3,23 +3,23 @@
 #define ROBOT_H
 
 
-#include "ServoController.h"
+#include <ServoController.h>
 #include "RobotFoot.h"
 
 class Robot {
 protected:
   ServoController* svoController;
   RobotFoot* feet[6];
-  boolean step;
+  bool step;
   
 public:
   Robot(ServoController* ctrl);
 
   ~Robot();
   
-  void forward();
-
-  void init();
+  void move(bool forward);
+  
+  void stand();
 };
 
 
