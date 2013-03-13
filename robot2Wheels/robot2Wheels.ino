@@ -14,7 +14,7 @@
 GyroMPU6050 gyro;
 
 double stable =0.0 , input, output;
-double kp=2,ki=0.5,kd=2;
+double kp=1,ki=0.5,kd=9;
 double aTuneStep=100, aTuneNoise=10, aTuneStartValue=255;
 unsigned int aTuneLookBack=20;
 byte ATuneModeRemember=2;
@@ -27,7 +27,7 @@ PID_ATune aTune(&input, &output);
 
 LCD5110 myGLCD(8,9,10,11,12);
 
-boolean tuning = true;
+boolean tuning = false;
 
 extern uint8_t SmallFont[];
 
@@ -60,13 +60,6 @@ void AutoTuneHelper(boolean start)
     pid.SetMode(ATuneModeRemember);
 }
 
-
-
-char* f2s(float f) {
-  static char ret[25];
-  return StringFormat::fromFloat(ret, f, 5);
-}
-
 void display(char* s, int line = 0) {
   myGLCD.clrScr();
   myGLCD.print(s, 0, line * 16);
@@ -80,13 +73,13 @@ void setup() {
 
   Serial.begin(9600);
 
-  //Serial.println("Initializing......");
+  Serial.println("Initializing......");
   display("Initializing......");
   Wire.begin();
   gyro.init();
 
   pid.SetMode(AUTOMATIC);
-  pid.SetOutputLimits(0, 500);
+  pid.SetOutputLimits(-255, 255);
 
   if(tuning) {
     tuning=false;
@@ -94,7 +87,7 @@ void setup() {
     tuning=true;
   }
 
-  //Serial.println("Ready!");
+  Serial.println("Ready!");
   display("Ready......");
 }
 
@@ -133,10 +126,10 @@ void drive(double output) {
 void loop() {
 
   Motion6T m6;
-  while(!gyro.readMotion6(m6));
+  gyro.readMotion6(m6);
     
 
-  input = atan2(m6.ay, m6.az) * 180 / 3.1415926 - 5.0 ;
+  input = atan2(m6.ay, m6.az) * 180 / 3.1415926 - 2.0 ;
 
   if(input < -45 || input > 45) {
     //drive(0);
@@ -181,19 +174,19 @@ void loop() {
     Serial.print(stable);
     Serial.print("\t -->\t");
     Serial.print(output);
-    Serial.print(", ");
-    Serial.print(output - 255);
+    //Serial.print(", ");
+    //Serial.print(output - 255);
     if(tuning)
       Serial.println("\ttuning.");
     else
       Serial.println("\tdone.");
 
-   // debugTime += 100;
+    debugTime += 100;
   }
 
-  drive(output - 255);
-  
-  delay(30);
+ // drive(output - 255);
+  drive(-output);
+  delay(10);
   drive(0);
 }
 
