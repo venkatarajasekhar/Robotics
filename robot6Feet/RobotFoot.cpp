@@ -13,17 +13,32 @@ RobotFoot::RobotFoot(ServoController* ctrler, int legSv, int kneeSv, int toeSv, 
   }
   
 void RobotFoot::setBasePos(int legBaseAngle, int kneeBaseAngle, int toeBaseAngle) {
+    try{
     this->legBaseAngle = legBaseAngle;
-    this->kneeBaseAngle = kneeBaseAngle;
+    }catch(...){
+        
+    }
+    try{
+        this->kneeBaseAngle = kneeBaseAngle;
+    }catch(...){
+        
+    }
+    try{
     this->toeBaseAngle = toeBaseAngle;
+    }catch(...){
+        
+    }
   }
   
   void RobotFoot::kneePos(int kneeAngle) {
     if(!left) {
       kneeAngle = -kneeAngle;
     }
-
+    try{
     svoController->set(kneeSvo, kneeBaseAngle + kneeAngle);
+    }catch(...){
+        
+    }
   }
   
   void RobotFoot::toePos(int toeAngle) {
@@ -38,8 +53,11 @@ void RobotFoot::setBasePos(int legBaseAngle, int kneeBaseAngle, int toeBaseAngle
     if(left) {
       legAngle = -legAngle;
     }
-
+    try{
     svoController->set(legSvo, legBaseAngle + legAngle);
+    }catch(...){
+        
+    }
   }
   
   
@@ -62,13 +80,25 @@ void RobotFoot::setBasePos(int legBaseAngle, int kneeBaseAngle, int toeBaseAngle
   }
   
   void RobotFoot::toeBasePos() {
+      try{
     svoController->set(toeSvo, toeBaseAngle);
+      }catch(...){
+          
+      }
   }
   
   void RobotFoot::kneeBasePos() {
+      try{
     svoController->set(kneeSvo, kneeBaseAngle);
+      }catch(...){
+          
+      }
   }
   
   void RobotFoot::legBasePos() {
+      try{
     svoController->set(legSvo, legBaseAngle);
+      }catch(...){
+          
+      }
   }
