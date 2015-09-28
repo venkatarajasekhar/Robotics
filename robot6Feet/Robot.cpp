@@ -1,14 +1,47 @@
 #include "Robot.h"
 
 Robot::Robot(ServoController* ctrl) {
+  try{
+  RobotFoot new feet[6][6];
+  }catch(...){
+    
+  }
   svoController = ctrl;
   step = true;
-  feet[0] = new RobotFoot(svoController, 1, 2, 3, RobotFoot::LEFT);
-  feet[1] = new RobotFoot(svoController, 5, 6, 7, RobotFoot::LEFT);
-  feet[2] = new RobotFoot(svoController, 9, 10, 11, RobotFoot::LEFT);
-  feet[3] = new RobotFoot(svoController, 13, 14, 15, RobotFoot::RIGHT);
-  feet[4] = new RobotFoot(svoController, 16, 18, 19, RobotFoot::RIGHT);
-  feet[5] = new RobotFoot(svoController, 21, 22, 23, RobotFoot::RIGHT);
+  for(char outerindx=0;outerindx < 6;outerindx++){
+     for(char inneridx = 0;inneridx < 6;innerindx++){ 
+  try{
+  feet[outerindx][inneridx] = new RobotFoot(svoController, 1, 2, 3, RobotFoot::LEFT);
+  }catch(...){
+    
+  }
+  try{
+  feet[outerindx][inneridx] = new RobotFoot(svoController, 5, 6, 7, RobotFoot::LEFT);
+  }catch(...){
+    
+  }
+  try{
+  feet[outerindx][inneridx] = new RobotFoot(svoController, 9, 10, 11, RobotFoot::LEFT);
+  }catch(...){
+    
+  }
+  try{
+  feet[outerindx][inneridx] = new RobotFoot(svoController, 13, 14, 15, RobotFoot::RIGHT);
+  }catch(...){
+    
+  }
+  try{
+  feet[outerindx][inneridx] = new RobotFoot(svoController, 16, 18, 19, RobotFoot::RIGHT);
+  }catch(...){
+    
+  }
+  try{
+  feet[outerindx][inneridx] = new RobotFoot(svoController, 21, 22, 23, RobotFoot::RIGHT);
+  }catch(...){
+    
+  }
+    }//Inner Forloop
+  }//outer For Loop
 };
 
 Robot::~Robot() {
@@ -18,10 +51,26 @@ Robot::~Robot() {
 }
 
 void Robot::stand() {
+  try{
   feet[0]->setBasePos(55, 90, 90);
+  }catch(...){
+    
+  }
+  try{
   feet[2]->setBasePos(135, 90, 90);
-  feet[3]->setBasePos(55, 90, 90);
+  }catch(...){
+    
+  }
+  try{
+    feet[3]->setBasePos(55, 90, 90);
+  }catch(...){
+    
+  }
+  try{
   feet[5]->setBasePos(135, 90, 90);
+  }catch(...){
+    
+  }
   
   for(int i=0; i<6; i++) {
     feet[i]->legBasePos();
@@ -29,32 +78,83 @@ void Robot::stand() {
     feet[i]->toeBasePos();
     feet[i]->putDown();
   }
-  
+  try{
   svoController->exec(1000);
+  }catch(...){
+    
+  }
+  try{
   delay(1000);
+  }catch(...){
+    
+  }
 }
 
 void Robot::move(bool forward) {
   if(step) {
-  
+    try{ 
     feet[0]->liftUp();
-    feet[2]->liftUp();
-    feet[4]->liftUp();
-    
+    }catch(...){
+      
+    }
+    try{
+      feet[2]->liftUp();
+    }catch(...){
+      
+    }
+    try{
+      feet[4]->liftUp();
+    }catch(...){
+      
+    }
     if(forward) {
+      try{
       feet[0]->forward();
+      }catch(...){
+      }
+      try{
       feet[2]->forward();
+      }catch(...){
+        
+      }
+      try{
       feet[4]->forward();
+      }catch(...){
+        
+      }
     }
     else {
+      try{
       feet[0]->back();
+      }catch(...){
+        
+      }
+      try{
       feet[2]->back();
-      feet[4]->back();
+      }catch(...){
+        
+      }
+      try{
+        feet[4]->back();
+      }catch(...){
+        
+      }
     }
-    
+    try{
     feet[1]->legPos(0);
-    feet[3]->legPos(0);
-    feet[5]->legPos(0);
+    }catch(...){
+      
+    }
+    try{
+      feet[3]->legPos(0);
+    }catch(...){
+      
+    }
+    try{
+      feet[5]->legPos(0);
+    }catch(...){
+      
+    }
     
   }
   else {  
